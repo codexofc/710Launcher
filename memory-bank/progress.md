@@ -64,3 +64,4 @@
 - Some features (e.g. grid/list switch) may require launcher restart to apply fully.
 - Notification hub: individual items not selectable; trackpad selection only highlights hub, not items (to be addressed later).
 - Package receiver (unreleased): `AppRepository.receiver` rescans only while `visible` (set from `LauncherActivity` onStart/onStop). Otherwise it marks the repository stale, and onStart runs `reloadInBackground()` if `needsReload()`. `LauncherApps.Callback` (GAPS #12) would replace the broadcast with targeted per-package updates.
+- launchApp guard (unreleased): `AppRepository.launchApp` catches ActivityNotFoundException (app removed while the list was still stale after the deferred package rescan) and SecurityException, triggers a rescan for the first, and does not record a launch for a failed start. The other launch sites (search overlay, grid fragment, LauncherActivity) are not covered yet.
