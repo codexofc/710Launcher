@@ -63,3 +63,4 @@
 - Notification applet icons can look pixelated or worse with custom icons.
 - Some features (e.g. grid/list switch) may require launcher restart to apply fully.
 - Notification hub: individual items not selectable; trackpad selection only highlights hub, not items (to be addressed later).
+- Package receiver (unreleased): `AppRepository.receiver` rescans only while `visible` (set from `LauncherActivity` onStart/onStop). Otherwise it marks the repository stale, and onStart runs `reloadInBackground()` if `needsReload()`. `LauncherApps.Callback` (GAPS #12) would replace the broadcast with targeted per-package updates.
