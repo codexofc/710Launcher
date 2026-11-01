@@ -63,3 +63,4 @@
 - Notification applet icons can look pixelated or worse with custom icons.
 - Some features (e.g. grid/list switch) may require launcher restart to apply fully.
 - Notification hub: individual items not selectable; trackpad selection only highlights hub, not items (to be addressed later).
+- Notification badges (unreleased): `NotificationBadgeCounter` (pure, tested) turns active notifications into one number per package (ongoing ignored, group summaries counted only without children, `max(count, sum of Notification.number)`). `NotifListenerService.updateBadges()` fills `badgeCounts` only while the activity listens (callback set), so nothing extra runs in the background; it also re-syncs on `onListenerConnected`. `AppAdapter` takes a `badgeResolver` and rebinds badges alone through a payload (`refreshBadges`). Grid view of the page grids only; dock and list view are still open (GAPS #11).

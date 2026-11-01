@@ -2491,8 +2491,12 @@ class LauncherActivity : AppCompatActivity() {
             runOnUiThread {
                 notificationHub.refresh(prefs.getNotificationAppWhitelist())
                 scheduleTickerRefresh()
+                pagerAdapter?.refreshBadges()
             }
         }
+        // Changes made while stopped weren't counted, so catch up now.
+        NotifListenerService.instance?.updateBadges()
+        pagerAdapter?.refreshBadges()
     }
 
     override fun onStop() {

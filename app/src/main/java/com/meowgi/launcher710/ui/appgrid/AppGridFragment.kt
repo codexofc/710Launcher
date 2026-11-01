@@ -176,7 +176,12 @@ class AppGridFragment : Fragment() {
                     }
                 })
             } else null,
-            isSparseMode = isSparseGrid
+            isSparseMode = isSparseGrid,
+            badgeResolver = { item ->
+                if (item is LaunchableItem.App)
+                    com.meowgi.launcher710.ui.notifications.NotifListenerService.badgeCounts[item.app.packageName] ?: 0
+                else 0
+            }
         )
         recycler.adapter = adapter
 
@@ -306,6 +311,10 @@ class AppGridFragment : Fragment() {
 
     fun getCurrentItems(): List<LaunchableItem> =
         if (::adapter.isInitialized) adapter.getCurrentList() else emptyList()
+
+    fun refreshBadges() {
+        if (::adapter.isInitialized) adapter.refreshBadges()
+    }
 
     fun refreshList() {
         if (!::adapter.isInitialized) return
